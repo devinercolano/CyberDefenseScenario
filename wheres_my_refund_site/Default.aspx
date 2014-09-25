@@ -3,8 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>IRS - Where's my Refund?</title>
+<head id="Head1" runat="server">
+    <title>IRS - Where's my return?</title>
     <style type="text/css">
 body {
 	font-size: 20px;
@@ -70,11 +70,12 @@ img.top_left {
 <h2 class="footer">Legal mumbo jumbo lol<br>IRS is a division of the Department of Treasury<br>blahblahblah</h2> -->
     <h1 align="center">
         <asp:Image ID="IRSLOGO" runat="server" AlternateText="Logo" ImageAlign="Left" 
-            ImageUrl="irs_logo.png" Width="100px" />
+            ImageUrl="~/App_Data/irs_logo.png" Width="100px" />
         Where's my Refund?</h1>
     <p>
         <asp:Image ID="DOLLARS" runat="server" Height="150px" ImageAlign="AbsMiddle" 
-            ImageUrl="money-banner.jpg" style="margin-left: 0px" />
+            ImageUrl="~/App_Data/money-banner.jpg" style="margin-left: 0px" 
+            AlternateText="MONEYSKY" />
     </p>
     <p>To view the status on your tax return refund, you must submit the following 
         information.</p>
@@ -116,26 +117,37 @@ img.top_left {
     </table>
     
 
-    <asp:Label ID="lblErrorMessage" runat="server"></asp:Label>
     <p>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    
+
+    <asp:Label ID="lblErrorMessage" runat="server"></asp:Label>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </p>
+    
+
+    <p>
+        <asp:Label ID="rfndSalutLabel" runat="server"></asp:Label>
         <asp:Label ID="rfndFNameLabel" runat="server"></asp:Label>
 &nbsp;<asp:Label ID="rfndLNameLabel" runat="server"></asp:Label>
-&nbsp;<asp:Label ID="rfndSSNLabel" runat="server"></asp:Label>
-&nbsp;-
+&nbsp;<asp:Label ID="rfndSufxLabel" runat="server"></asp:Label>
+        <asp:Label ID="rfndSSNLabel" runat="server"></asp:Label>
+&nbsp;&nbsp;&nbsp;
         <asp:Label ID="rfndFilingStatusLabel" runat="server"></asp:Label>
     </p>
     <p>
         <asp:Label ID="rfndAMTLabel" runat="server"></asp:Label>
-&nbsp;:
-        <asp:Label ID="rfndSTATUSLabel" runat="server"></asp:Label>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Label ID="rfndStatusLabel" runat="server"></asp:Label>
+    </p>
+    <p>
+        <asp:Label ID="rfndDateSentLabel" runat="server"></asp:Label>
     </p>
     
 
     </form>
-
 <p class="footinfo">
 	<h2 class="footer">©2014 The Internal Revenue Service<br>The IRS is a division of the Department of Treasury.<br>ALL RIGHTS RESERVED.</h2>
 </p>
-
 </body>
 </html>

@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 public partial class _Default : System.Web.UI.Page
 {
-    protected SqlConnection objConn = new SqlConnection(ConfigurationManager.ConnectionStrings["test"].ToString());
+    protected SqlConnection objConn = new SqlConnection(ConfigurationManager.ConnectionStrings["TarTS_CONN"].ToString());
     protected string conn = "";
     protected void Page_Load(object sender, EventArgs e)
     { }
@@ -42,7 +42,7 @@ public partial class _Default : System.Web.UI.Page
         }
         else
         {
-            conn = "SELECT     FNAME, LNAME, RSTATUS, AMT, MSTATUS, SSN FROM         [returns] WHERE     (SSN = '" + socialInput.Text + "') AND (MSTATUS = '" + statusInput.Text + "') AND (AMT = '" + amtInput.Text + "')";
+            conn = "SELECT     Salutation, FirstName, LastName, Suffix, SSN, FilingStatus, ReturnAmount, HasFiled, DateResolved FROM         [CitizenData, TaxReturnInformation, Resolution] WHERE     (SSN = '" + socialInput.Text + "') AND (FilingStatus = '" + statusInput.Text + "') AND (ReturnAmount = '" + amtInput.Text + "')"; 
             getReturn();
         }
     }
@@ -55,14 +55,18 @@ public partial class _Default : System.Web.UI.Page
         rdr = cmd.ExecuteReader();
 
         rdr.Read();
-        /*        queryRsltString = String.Format("{0} {1} {2} {3} {4} {5}", rdr[0], rdr[1], rdr[2], rdr[3], rdr[4], rdr[5]);
-                string[] queryStrings = queryRsltString.Split(' '); */
-        rfndSSNLabel.Text = String.Format("{0}", rdr[5]);
-        rfndFilingStatusLabel.Text = String.Format("{0}", rdr[4]);
-        rfndAMTLabel.Text = String.Format("{0}", rdr[3]);
-        rfndSTATUSLabel.Text = String.Format("{0}", rdr[2]);
-        rfndLNameLabel.Text = String.Format("{0}", rdr[1]);
-        rfndFNameLabel.Text = String.Format("{0}", rdr[0]);
+        /* put a condition here to catch a 'no results found from query'! */ 
+        /* conn = "SELECT     Salutation, FirstName, LastName, Suffix, SSN, FilingStatus, ReturnAmount, HasFiled, DateResolved FROM         [CitizenData, TaxReturnInformation, Resolution] 
+         * WHERE     (SSN = '" + socialInput.Text + "') AND (FilingStatus = '" + statusInput.Text + "') AND (ReturnAmount = '" + amtInput.Text + "')";  */
+        rfndDateSentLabel.Text = String.Format("{0}", rdr[8]);
+        rfndStatusLabel.Text = String.Format("{0}", rdr[7]);
+        rfndAMTLabel.Text = String.Format("{0}", rdr[6]);
+        rfndFilingStatusLabel.Text = String.Format("{0}", rdr[5]);
+        rfndSSNLabel.Text = String.Format("{0}", rdr[4]);
+        rfndSufxLabel.Text = String.Format("{0}", rdr[3]);
+        rfndLNameLabel.Text = String.Format("{0}", rdr[2]);
+        rfndFNameLabel.Text = String.Format("{0}", rdr[1]);
+        rfndSalutLabel.Text = String.Format("{0}", rdr[0]);
         rdr.Close();
 
     }
