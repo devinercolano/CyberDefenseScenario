@@ -16,8 +16,8 @@ CREATE TABLE [dbo].[CitizenData](
 	[LastName] [varchar](80) NULL,
 	[FirstName] [varchar](80) NULL,
 	[MiddleInitial] [varchar](80) NULL,
-	[ContactID] [int] IDENTITY(2001,1) NULL,
-	[EmployerID] [int] IDENTITY(3001,1)NULL,
+	[ContactID] [int] NULL,
+	[EmployerID] [int] NULL,
  CONSTRAINT [CitizenData_PK] PRIMARY KEY CLUSTERED 
 (
 	[TaxID] ASC
@@ -30,7 +30,7 @@ GO
 
 CREATE TABLE [dbo].[ContactInformation](
 	[ContactID] [int] IDENTITY(2001,1) NOT NULL,
-	[TaxID] [int] IDENTITY(1001,1) NULL,
+	[TaxID] [int] NULL,
 	[Address1] [varchar](80) NULL,
 	[Address2] [varchar](80) NULL,
 	[City] [varchar](80) NULL,
@@ -48,7 +48,7 @@ GO
 
 CREATE TABLE [dbo].[EmployerData](
 	[EmployerID] [int] IDENTITY(3001,1) NOT NULL,
-	[TaxID] [int] IDENTITY(1001,1)NULL,
+	[TaxID] [int] NULL,
 	[EmployerName] [varchar](80) NULL,
 	[ContactID] [int] NULL,
  CONSTRAINT [EmployerData_PK] PRIMARY KEY CLUSTERED 
@@ -63,7 +63,7 @@ GO
 
 CREATE TABLE [dbo].[PhoneInformation](
 	[PhoneID] [int] IDENTITY(4001,1) NOT NULL,
-	[TaxID] [int] IDENTITY(1001,1) NULL,
+	[TaxID] [int] NULL,
 	[PhoneNum] [varchar](12) NULL,
 	[PhoneType] [varchar](20) NULL
  CONSTRAINT [PhoneInformation_PK] PRIMARY KEY CLUSTERED 
@@ -74,7 +74,7 @@ CREATE TABLE [dbo].[PhoneInformation](
 GO
 
 CREATE TABLE [dbo].[Resolution](
-	[TaxID] [int] IDENTITY(1001,1) NULL,
+	[TaxID] [int] NULL,
 	[ResolutionID] [int] IDENTITY(7001,1) NOT NULL,
 	[PaymentID] [int] NULL,
 	[DateResolved] [datetime] NULL,
@@ -91,7 +91,7 @@ GO
 
 CREATE TABLE [dbo].[ReturnResolution](
 	[ReturnID] [int] IDENTITY(6001,1) NOT NULL,
-	[ResolutionID] [int] IDENTITY(7001,1) NOT NULL,
+	[ResolutionID] [int] NOT NULL,
  CONSTRAINT [ReturnResolution_PK] PRIMARY KEY CLUSTERED 
 (
 	[ReturnID] ASC,
@@ -102,7 +102,7 @@ CREATE TABLE [dbo].[ReturnResolution](
 GO
 
 CREATE TABLE [dbo].[TaxReturnInformation](
-	[TaxID] [int] IDENTITY(1001,1) NULL,
+	[TaxID] [int] NULL,
 	[ReturnID] [int] IDENTITY(6001,1) NOT NULL,
 	[FilingStatus] [varchar](50) NULL,
 	[ReturnType] [varchar](10) NULL,
