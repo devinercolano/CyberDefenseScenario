@@ -70,11 +70,11 @@ img.top_left {
 <h2 class="footer">Legal mumbo jumbo lol<br>IRS is a division of the Department of Treasury<br>blahblahblah</h2> -->
     <h1 align="center">
         <asp:Image ID="IRSLOGO" runat="server" AlternateText="Logo" ImageAlign="Left" 
-            ImageUrl="~/App_Data/irs_logo.png" Width="100px" />
+            ImageUrl="irs_logo.png" Width="100px" />
         Where's my Refund?</h1>
     <p>
         <asp:Image ID="DOLLARS" runat="server" Height="150px" ImageAlign="AbsMiddle" 
-            ImageUrl="~/App_Data/money-banner.jpg" style="margin-left: 0px" 
+            ImageUrl="money-banner.jpg" style="margin-left: 0px" 
             AlternateText="MONEYSKY" />
     </p>
     <p>To view the status on your tax return refund, you must submit the following 
@@ -108,7 +108,7 @@ img.top_left {
         </tr>
         <tr>
             <td class="style2">
-                &nbsp;</td>
+                </td>
             <td class="style3">
                 <asp:Button ID="refundSubmitButton" runat="server" Text="Submit" 
                     onclick="refundSubmitButton_Click" />
@@ -118,30 +118,34 @@ img.top_left {
     
 
     <p>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
     
 
     <asp:Label ID="lblErrorMessage" runat="server"></asp:Label>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
     </p>
     
-
-    <p>
+	<p>
         <asp:Label ID="rfndSalutLabel" runat="server"></asp:Label>
         <asp:Label ID="rfndFNameLabel" runat="server"></asp:Label>
-&nbsp;<asp:Label ID="rfndLNameLabel" runat="server"></asp:Label>
-&nbsp;<asp:Label ID="rfndSufxLabel" runat="server"></asp:Label>
-        <asp:Label ID="rfndSSNLabel" runat="server"></asp:Label>
-&nbsp;&nbsp;&nbsp;
-        <asp:Label ID="rfndFilingStatusLabel" runat="server"></asp:Label>
+		<asp:Label ID="rfndLNameLabel" runat="server"></asp:Label>
+		<asp:Label ID="rfndSufxLabel" runat="server"></asp:Label>
+	</p>
+	
+	
+    <p>
+
+        <strong>SSN:</strong> <asp:Label ID="rfndSSNLabel" runat="server"></asp:Label>
+
+        <strong>Filing Status:</strong> <asp:Label ID="rfndFilingStatusLabel" runat="server"></asp:Label>
     </p>
     <p>
-        <asp:Label ID="rfndAMTLabel" runat="server"></asp:Label>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Label ID="rfndStatusLabel" runat="server"></asp:Label>
+        <strong>Amount Due:</strong> <asp:Label ID="rfndAMTLabel" runat="server"></asp:Label>
+        
+        <strong>Date Filed:</strong> <asp:Label ID="dateFiledLabel" runat="server"></asp:Label>
     </p>
     <p>
-        <asp:Label ID="rfndDateSentLabel" runat="server"></asp:Label>
+        <strong>Date Resolved:</strong> <asp:Label ID="rfndDateResolvedLabel" runat="server"></asp:Label>
     </p>
     
 

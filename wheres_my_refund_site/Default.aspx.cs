@@ -11,7 +11,10 @@ using System.Web.UI.WebControls;
 public partial class _Default : System.Web.UI.Page
 {
     protected SqlConnection objConn = new SqlConnection(ConfigurationManager.ConnectionStrings["TarTS_CONN"].ToString());
-    protected string conn = "";
+    protected string taxID = "";
+    protected string conn1 = "";
+    protected string conn2 = "";
+    protected string conn3 = "";
     protected void Page_Load(object sender, EventArgs e)
     { }
 
@@ -42,32 +45,53 @@ public partial class _Default : System.Web.UI.Page
         }
         else
         {
-            conn = "SELECT     Salutation, FirstName, LastName, Suffix, SSN, FilingStatus, ReturnAmount, HasFiled, DateResolved FROM         [CitizenData, TaxReturnInformation, Resolution] WHERE     (SSN = '" + socialInput.Text + "') AND (FilingStatus = '" + statusInput.Text + "') AND (ReturnAmount = '" + amtInput.Text + "')"; 
+            conn1 = "SELECT     TaxID, Salutation, Suffix, LastName, FirstName     FROM CitizenData     WHERE (SSN = '" + socialInput.Text + "')";
             getReturn();
         }
     }
 
     private void getReturn()
     {
-        SqlCommand cmd = new SqlCommand(conn, objConn);
+        SqlCommand cmd = new SqlCommand(conn1, objConn);
         SqlDataReader rdr;
         objConn.Open();
         rdr = cmd.ExecuteReader();
 
+        /* get labels from CitizenData! */
         rdr.Read();
         /* put a condition here to catch a 'no results found from query'! */ 
-        /* conn = "SELECT     Salutation, FirstName, LastName, Suffix, SSN, FilingStatus, ReturnAmount, HasFiled, DateResolved FROM         [CitizenData, TaxReturnInformation, Resolution] 
-         * WHERE     (SSN = '" + socialInput.Text + "') AND (FilingStatus = '" + statusInput.Text + "') AND (ReturnAmount = '" + amtInput.Text + "')";  */
-        rfndDateSentLabel.Text = String.Format("{0}", rdr[8]);
-        rfndStatusLabel.Text = String.Format("{0}", rdr[7]);
-        rfndAMTLabel.Text = String.Format("{0}", rdr[6]);
-        rfndFilingStatusLabel.Text = String.Format("{0}", rdr[5]);
-        rfndSSNLabel.Text = String.Format("{0}", rdr[4]);
-        rfndSufxLabel.Text = String.Format("{0}", rdr[3]);
-        rfndLNameLabel.Text = String.Format("{0}", rdr[2]);
-        rfndFNameLabel.Text = String.Format("{0}", rdr[1]);
-        rfndSalutLabel.Text = String.Format("{0}", rdr[0]);
+        rfndFNameLabel.Text = String.Format("{0}", rdr[4]);
+        rfndLNameLabel.Text = String.Format("{0}", rdr[3]);
+        rfndSufxLabel.Text = String.Format("{0}", rdr[2]);
+        rfndSalutLabel.Text = String.Format("{0}", rdr[1]);
+        taxID = String.Format("{0}", rdr[0]);
         rdr.Close();
+		objConn.Close();
+
+        /* now that we have taxID, we can get labels from Resolution! */
+        conn2 = "SELECT     DateResolved     FROM Resolution     WHERE (TaxID = '" + taxID + "')";
+        cmd = new SqlCommand(conn2, objConn);
+        objConn.Open();
+        rdr = cmd.ExecuteReader();
+        rdr.Read();
+        rfndDateResolvedLabel.Text = String.Format("{0}", rdr[0]);
+        rdr.Close();
+		objConn.Close();
+
+        /* and labels from TaxReturnInformation! */
+        conn3 = "SELECT     DateFiled     FROM TaxReturnInformation     WHERE (TaxID = '" + taxID + "') AND (FilingStatus = '" + statusInput.Text + "')";
+		cmd = new SqlCommand(conn3, objConn);
+        objConn.Open();
+        rdr = cmd.ExecuteReader();
+        rdr.Read();
+        dateFiledLabel.Text = String.Format("{0}", rdr[0]);
+        rdr.Close();
+		objConn.Close();
+
+		/* set the last few labels! */
+		rfndSSNLabel.Text = socialInput.Text;
+		rfndFilingStatusLabel.Text = statusInput.Text;
+		rfndAMTLabel.Text = amtInput.Text;
 
     }
 
