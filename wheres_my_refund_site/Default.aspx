@@ -135,17 +135,17 @@ img.top_left {
 	
     <p>
 
-        <strong>SSN:</strong> <asp:Label ID="rfndSSNLabel" runat="server"></asp:Label>
+        <asp:Label ID="rfndSSNLabel" runat="server"></asp:Label>
 
-        <strong>Filing Status:</strong> <asp:Label ID="rfndFilingStatusLabel" runat="server"></asp:Label>
+        <asp:Label ID="rfndFilingStatusLabel" runat="server"></asp:Label>
     </p>
     <p>
-        <strong>Amount Due:</strong> <asp:Label ID="rfndAMTLabel" runat="server"></asp:Label>
+        <asp:Label ID="rfndAMTLabel" runat="server"></asp:Label>
         
-        <strong>Date Filed:</strong> <asp:Label ID="dateFiledLabel" runat="server"></asp:Label>
+        <asp:Label ID="dateFiledLabel" runat="server"></asp:Label>
     </p>
     <p>
-        <strong>Date Resolved:</strong> <asp:Label ID="rfndDateResolvedLabel" runat="server"></asp:Label>
+        <asp:Label ID="rfndDateResolvedLabel" runat="server"></asp:Label>
     </p>
     
 
