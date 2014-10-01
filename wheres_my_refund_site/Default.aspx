@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>IRS - Where's my return?</title>
+    <title>Where's my Refund?</title>
     <style type="text/css">
 body {
 	font-size: 20px;
@@ -57,19 +57,8 @@ img.top_left {
 </head>
 <body>
     <form id="form1" runat="server">
-<!--<h1>  Where's my RETURN? </h1>
-<img class="top_left" src="" alt="INTERNAL REVENUE SERVICE!!" />
-<br><br><br><br>
-<img class="centered_banner" src="App_Data\money-banner.jpg" alt="CASH" />
-<br><br>
-<p class="center">To view the status on your tax return refund<br> you must enter the following information.</p>
-<p class="textbox_label">SSN: <input type="text" name="SSN"></p>
-<p class="textbox_label">Filing Status: <input type="text" name="STATUS"></p>
-<p class="textbox_label">Return Amt: <input type="text" name="RTRN"></p>
-<br><br><br><br><br>
-<h2 class="footer">Legal mumbo jumbo lol<br>IRS is a division of the Department of Treasury<br>blahblahblah</h2> -->
     <h1 align="center">
-        <asp:Image ID="IRSLOGO" runat="server" AlternateText="Logo" ImageAlign="Left" 
+        <asp:Image ID="IRSLOGO" runat="server" AlternateText="SEAL" ImageAlign="Left" 
             ImageUrl="irs_logo.png" Width="100px" />
         Where's my Refund?</h1>
     <p>
