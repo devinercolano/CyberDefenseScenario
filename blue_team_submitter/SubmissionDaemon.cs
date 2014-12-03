@@ -23,10 +23,10 @@ namespace SubmissionDaemon
     {
         // scoring server information
         const Int32 port = 1212;
-        const String scoringServer = "192.168.177.128";
+        const String scoringServer = "10.0.27.128";
 
-        // maximum submission size in bytes.
-        const int MAXSUBMISSIONLENGTH = 3000;
+        // maximum submission size in bytes (10K).
+        const int MAXSUBMISSIONLENGTH = 10000;
 
         // challenge submission filename constants
         const String chall1_filename = "ftp_server.txt";
@@ -42,8 +42,7 @@ namespace SubmissionDaemon
         const String chall5_foldername = "pro_tools\\";
         const String chall6_foldername = "plugin\\";
 
-        //const String submissions_path = "C:\\Users\\blue_team\\Documents\\submissions\\";
-        const String submissions_path = "C:\\Users\\Administrator\\Documents\\submissions\\";
+        const String submissions_path = "C:\\Users\\blue_team\\Documents\\submissions\\";
 
         // challenge file watcher objects
         FileSystemWatcher chall1_filewatcher;
