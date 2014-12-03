@@ -1,10 +1,4 @@
-﻿/*
- * 
- * 
- *
- */
-
-/* file: Program.cs
+﻿/* file: Program.cs
  * author: David Weinman
  * date: 12/2/14
  * description: Main class which
