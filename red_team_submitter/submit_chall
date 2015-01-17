@@ -1,0 +1,77 @@
+#!/usr/bin/perl
+# submit_chall by David Weinman <david@weinman.com>
+#
+# takes in a challenge name (chall_name) and a submission
+# file name (submission_file_name), connects to the 
+# submission checking server and sends the contents of the
+# submission file.
+
+require 5.008;
+
+use strict;
+use warnings;
+use Socket;
+
+use constant MAX_SUBMISSION_LEN => 1024;
+use constant SCORING_PORT_NUM => 7890;
+use constant SCORING_IP_ADDR => "10.0.1.88";
+
+main(@ARGV);
+
+sub main
+{
+    my $chall_name = shift || error("argc err (submit_chall <chall_name> <submission_fname>)");
+    my $submission_file_name = shift || error("argc err (submit_chall <chall_name> <submission_fname>)");
+
+    # hash reference of chall names and their respective ids
+    my $submission_names = {
+	sql_version => "1",
+	vandalism => "2",
+	ssn_recon => "3",
+	persistent_access => "4",
+	wrench_in_the_gears => "5",
+	logout_user => "6"
+    };
+
+    # check that chall name is among list of challenges
+    error("invalid chall name err") unless (grep { $_ eq $chall_name } keys %$submission_names);
+
+    # check that the file with the given name exists
+    error("file does not exist") unless (-e $submission_file_name);
+    # make sure it isn't a directory
+    error("file name is actually a directory") unless (! -d $submission_file_name);
+    # make sure it is a readable plain file
+    error("invalid file, unreadable or not plain text?") unless (-f $submission_file_name && -R $submission_file_name);
+
+    # open submission file (in read mode), and check that the size is within bounds
+    open(SUBMISSIONFH, '<', $submission_file_name) or error("file open error ($!)");
+    my $submission_size = -s $submission_file_name;
+    error("invalid submission size ($submission_size bytes) (0 bytes < size < 1024 bytes)") unless (0 < $submission_size && MAX_SUBMISSION_LEN > $submission_size);
+
+    # read in file 
+    my $submission;
+    $submission = $submission . $_ while <SUBMISSIONFH>;
+
+    # open connection with submission server
+    my $socket;
+    my($protoname, $protoaliases, $proto_num) = getprotobyname('tcp');
+    socket($socket, AF_INET, SOCK_STREAM, $proto_num) or error("could not establish connection with scoring server ($!)");
+    my $paddr = sockaddr_in(SCORING_PORT_NUM, inet_aton(SCORING_IP_ADDR));
+    connect($socket, $paddr) or error("could not establish connection with scoring server ($!)");
+
+    # send submission along with header and footer that conform to the DSL
+    send($socket, "CHALLENGE_SUBMIT: red" . $submission_names->{$chall_name} . "\nBEGIN\n" . $submission . "END\r\n", 0);
+    print("[*] OK sent submission\n");
+
+    # close connection
+    close($socket);
+    
+}
+
+sub error
+{
+    my $e = shift || 'unkown error';
+    print("[!] $e\n");
+    exit 0;
+}
+

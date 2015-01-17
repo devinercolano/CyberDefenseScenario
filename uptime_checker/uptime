@@ -1,0 +1,47 @@
+#!/bin/bash
+# uptime by David Weinman <david@weinman.com>
+
+# collects the time since the last time the uptime was run,
+# takes the difference between that time and the current time
+# in seconds and runs the uptime perl script which actually
+# does the checking and passes that time to it as its only
+# argument
+
+uptime_path=$(echo "$(pwd)/uptime.txt")
+lasttime_path=$(echo "$(pwd)/lasttime.txt")
+current_time="$(date --date="$(date +%Y-%m-%d\ \ %H:%M:%S)" +%s)"
+
+# if the uptime program's last time file does not exist, then make it
+if [ ! -e $uptime_path ]; then
+  echo "[*] uptime.txt doesn't exist!"
+  echo "up:(00min, 00sec) down:(00min, 00sec)" > $uptime_path
+# unless that file happens to be a directory (idk why that would ever happen??)
+# then error and just exit - we dont want to delete anyone's stuff.
+elif [ -d $uptime_path ]; then
+  echo "[*] uptime.txt is a directory! please remove it - I am exiting now.."
+  exit 1;
+fi
+
+# if the last time run file doesn't exist then make it and dump our new
+# time into it
+if [ ! -e $lasttime_path ]; then
+  makey_time="$(date --date="$(date +%Y-%m-%d\ \ %H:%M:%S)" +%s)"
+  last_time="$current_time"
+# unless that file happens to be a directory (idk why this would happen either)
+# then error and just exit - we still dont want to delete anyone's stuff.
+elif [ -d $lasttime_path ]; then
+  echo "[*] lasttime.txt is a directory! please remove it - I am exiting now.."
+  exit 1;
+# else - if the last time file exists then use the contents of that file as
+# our prior time instead
+elif [ -e $lasttime_path ]; then
+  makey_time="$(date --date="$(date +%Y-%m-%d\ \ %H:%M:%S)" +%s)"
+  last_time="$(cat $lasttime_path)"
+fi
+
+# save our (new) last checked time
+echo $makey_time > $lasttime_path
+
+# run our uptime perl script with the difference in time we come up with
+./uptime.pl $(expr $makey_time - $last_time)
+
