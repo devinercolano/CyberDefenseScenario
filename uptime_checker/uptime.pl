@@ -156,7 +156,7 @@ foreach my $val (@servers) {
 		print("[*] Connection success.\n") unless $proto_num eq 17;
 		send($sock, "$val->{hello_msg}\r\n\r\n", 0);
 		print("[*] sent $val->{hello_msg}\n");
-		$recieved_data = "";
+		$received_data = "";
 		# if we are dealing with udp, we need a timout in case the server is dead ( or doesn't respond )
 		eval {
 			# make a subroutine for letting the user know that the alarm timed out
@@ -169,7 +169,7 @@ foreach my $val (@servers) {
 		} if ($proto_num eq 17);
 		# if we are dealing with tcp, we have a connection to rely on, so no timeouts!
 		if ($proto_num eq 6) {
-			recv($sock, $recieved_data, 10000, 0);
+			recv($sock, $received_data, 10000, 0);
 		}
 		if (length($received_data) <= 0) {
 			errormsg("received nothing!\n");
