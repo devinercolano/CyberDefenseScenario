@@ -21,6 +21,7 @@ use Server;
 use constant TIMEOUT => 8;
 use constant MAX_UPTIME_FILE_LEN => 40;
 use constant DELIM => ',';
+use constant UPTIME_CONFIG_PATH => "/tmp/uptimechecker/";
 
 sub ltrim($);
 sub rtrim($);
@@ -65,8 +66,8 @@ $| = 1;
 
 my @servers;
 
-# get the list of servers 
-open(FILE, "<uptime.config") or error("could not open uptime.config: " . $! . "\n");
+# get the list of servers from the 
+open(FILE, '<', UPTIME_CONFIG_PATH . "uptime.config") or error("could not open uptime.config: " . $! . "\n");
 
 my $i = 0;
 while (<FILE>) {
