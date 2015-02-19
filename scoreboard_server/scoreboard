@@ -1,0 +1,34 @@
+#!/usr/bin/python
+"""
+  scoreboard
+  by David Weinman
+  11/25/14, 4:30a
+
+---
+listens for any connection on
+port 1234 and responds
+with the contents of the score-
+board file.
+"""
+
+import os
+from socket import *
+
+filename = "/tmp/scoring/scoreboard_file.txt"
+
+serverPort = 1234
+
+serverSocket = socket(AF_INET, SOCK_STREAM)
+
+serverSocket.bind(('', serverPort))
+
+serverSocket.listen(1)
+
+while 1:
+	connectionSocket, addr = serverSocket.accept()
+	fh = open(filename, "r")
+	data = fh.read()
+	connectionSocket.sendall(data)
+	fh.close()
+	connectionSocket.close()
+
